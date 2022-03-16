@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8" />
+   <title>HTML5 File Drag & Drop API</title>
+   <link rel="stylesheet" type="text/css" media="all" href="filedrag.css" />
+</head>
+<body>
+
+<form id="upload"
+      enctype="multipart/form-data">
+   <fieldset>
+      <legend>Datos del cliente</legend>
+
+      Nombre: <input class="textoValidado" type="text" name="nombre" autofocus="autofocus" placeholder="Introduce tu nombre" required/>
+      <br><br>
+      Teléfono: <input class="textoValidado" type="text" name="telefono" id="telefono" placeholder="Patrón: 123-458-789" required pattern="^(6|7|9)([0-9]{2})-([0-9]{3})-([0-9]{3})$"/>
+      <br><br>
+      Email: <input class="textoValidado" type="email" name="email" id="email" placeholder="Introduce tu dirección de correo electrónico" required/>
+
+   </fieldset>
+
+
+   <fieldset>
+      <legend>Libros</legend>
+      <br>
+      <select name="libros" id="libros" required>
+         <option style="display:none"></option>
+         <option value="libro1">Libro1</option>
+         <option value="libro2">Libro2</option>
+         <option value="libro3">Libro3</option>
+         <option value="libro4">Libro4</option>
+         <option value="libro5">Libro5</option>
+      </select>
+      Cantidad (Máx. 5):
+      <input type="number" id="cantidad" class="cantidad" min="1" max="5" required placeholder="1">
+
+   </fieldset>
+   <input type="file" id="file" name="file" multiple>Arrastra aquí tus ficheros</input>
+
+
+
+   <button type="submit" name="enviar" id="enviar" [disabled]="!f.form.valid" >Enviar</button>
+
+</form>
+<div id="messages" ><p>Mensajes de estado</p></div>
+<script src="filedrag.js"></script>
+<img id="output" width="200" />
+
+</body>
+</html>
