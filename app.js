@@ -52,10 +52,13 @@ var pedido = upload.array('file');
 app.post('/pedido/add', (req, res) => {
     pedido(req, res, (err) => {
         if (err){
-            console.log(err);
-            console.log("mal");
+            if(err.message){
+                res.send({success : false, error : err.message}); //como el error viene de multer cogemos el mensaje
+            }else{
+                res.send({success : false, error : err}); //como este error lo he definido yo, solamente es el mensaje
+            }
         }else{
-            console.log("bien");
+            res.send(req.body);
         }
     // en caso de error, devolver un objeto JSON
     // { sucess:false, error: err  }  

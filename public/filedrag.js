@@ -15,32 +15,37 @@
 	function fileDragHover(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		e.target.className = (e.type == "dragover" ? "hover" : "");
+		e.target.className = (e.type === "dragover" ? "hover" : "");
 	}
 
 
 	// file selection
 	function fileSelectHandler(e) {
-
+		console.log("a")
 		// cancel event and hover styling
 		fileDragHover(e);
 
 		// fetch FileList object
 		var files = e.target.files || e.dataTransfer.files;
-   
-        if ( e.constructor.name !=  "DragEvent"){
+
+        if ( e.constructor.name !==  "DragEvent"){
             // process all File objects
             for (var i = 0, f; f = files[i]; i++) {
                 parseFile(f);
+				console.log("a")
             }
         }
 
         // files can be added by drag&drop or clicking on form's button
         // if the later, append files to form files field 
+        /*
+
         var formFiles = $id("upload").fileselect;
-        if (formFiles.files.length == 0){
+                if (formFiles.files.length == 0){
             formFiles.files = files;
         }
+         */
+
 
 
 
@@ -71,6 +76,14 @@
 			{
 				body: formData,
 				method: "post"
+			})
+			.then(function(res){ return res.json(); })
+			.then(function(data){
+				if(data.error){
+					console.log( JSON.stringify( data.error ))
+				}else{
+					console.log( JSON.stringify( data ))
+				}
 			});
 
 
@@ -94,7 +107,7 @@
 		dropbox.addEventListener("dragenter", fileDragHover, false);
 		dropbox.addEventListener("dragover", fileDragHover, false);
 		dropbox.addEventListener("dragleave", fileDragHover, false);
-		dropbox.addEventListener("drop", fileSelectHandler, false);
+		dropbox.addEventListener("ondrop", fileSelectHandler, false);
 
 		dropbox.style.display = "block";
 	}
