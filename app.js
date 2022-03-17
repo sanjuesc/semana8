@@ -4,6 +4,7 @@ var path = require("path");
 
 var app = express();
 app.use(express.static(path.join(__dirname, 'public')));
+let ruta = 'imgs/'
 
 // View Engine
 app.set('view engine', 'ejs');
@@ -18,7 +19,7 @@ var multer  = require('multer');
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads')
+        cb(null, "public/"+ruta)
     },
     filename: function (req, file, cb) {
         const filetypes = /jpeg|jpg|png/;
@@ -58,7 +59,13 @@ app.post('/pedido/add', (req, res) => {
                 res.send({success : false, error : err}); //como este error lo he definido yo, solamente es el mensaje
             }
         }else{
-            res.send(req.body);
+            let respuesta = req.body
+            let rutas = {}
+            for(var archivo in req.files){
+                rutas[req.files[archivo].originalname] = ruta + req.files[archivo].originalname;
+            }
+            respuesta['archivos']=rutas;
+            res.send(respuesta);
         }
     // en caso de error, devolver un objeto JSON
     // { sucess:false, error: err  }  

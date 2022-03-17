@@ -7,7 +7,7 @@
 	// output information
 	function output(msg) {
 		var m = $id("messages");
-		m.innerHTML = msg + m.innerHTML;
+		m.innerHTML = m.innerHTML +msg;
 	}
 
 
@@ -82,7 +82,17 @@
 				if(data.error){
 					console.log( JSON.stringify( data.error ))
 				}else{
-					console.log( JSON.stringify( data ))
+					output("<br>Resultado del formulario:<br>");
+					output("<ul>")
+					const keys = Object.keys(data)
+					for (var i = 0; i < keys.length - 1; i++) {
+						output("<li>"+data[keys[i]]+"</li>")
+					}
+					output("<li>Imagenes:</li>")
+					output("</ul>")
+					for(var a in data['archivos']){
+						output("<a href=\""+data['archivos'][a]+"\" target=\"_blank\"><img src=\""+data['archivos'][a]+"\" alt=\"Imagen de turno\" style=\"width:100px;height:100px;\"></a>\n")
+					}
 				}
 			});
 
