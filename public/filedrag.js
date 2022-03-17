@@ -80,7 +80,7 @@
 			.then(function(res){ return res.json(); })
 			.then(function(data){
 				if(data.error){
-					console.log( JSON.stringify( data.error ))
+					alert(data.error);
 				}else{
 					output("<br>Resultado del formulario:<br>");
 					output("<ul>")

@@ -31,7 +31,7 @@ var storage = multer.diskStorage({
         if(mimetype && extname){
             return cb(null,file.originalname);
         } else {
-            cb("Solamente imagenes");
+            cb("Solamente pueden subirse imagenes");
         }
     }
 
@@ -54,7 +54,7 @@ app.post('/pedido/add', (req, res) => {
     pedido(req, res, (err) => {
         if (err){
             if(err.message){
-                res.send({success : false, error : err.message}); //como el error viene de multer cogemos el mensaje
+                res.send({success : false, error : "No pueden subirse ficheros de mas de 2MB"}); //como el error viene de multer cogemos el mensaje
             }else{
                 res.send({success : false, error : err}); //como este error lo he definido yo, solamente es el mensaje
             }
